@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, allowedRoles = [] }) => {
     const { user, loading } = useAuth()
     const location = useLocation()
 
@@ -15,6 +15,16 @@ const ProtectedRoute = ({ children }) => {
 
     if (!user) {
         return <Navigate to="/login" state={{ from: location }} replace />
+    }
+
+    // If allowedRoles is empty, allow all authenticated users
+    if (allowedRoles.length === 0) {
+        return children
+    }
+
+    // Check if user's role is in the allowed roles
+    if (!allowedRoles.includes(user.role)) {
+        return <Navigate to="/" replace />
     }
 
     return children
