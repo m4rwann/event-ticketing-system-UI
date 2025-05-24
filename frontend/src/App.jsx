@@ -8,6 +8,9 @@ import Register from './pages/auth/Register'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import EventDetails from './pages/EventDetails'
 import MyTickets from './pages/MyTickets'
+import MyEvents from './pages/MyEvents'
+import CreateEvent from './pages/CreateEvent'
+import EditEvent from './pages/EditEvent'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -52,7 +55,15 @@ function App() {
               path="/my-events"
               element={
                 <ProtectedRoute allowedRoles={['organizer']}>
-                  <Home />
+                  <MyEvents />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/events/:id/edit"
+              element={
+                <ProtectedRoute allowedRoles={['organizer']}>
+                  <EditEvent />
                 </ProtectedRoute>
               }
             />
@@ -69,6 +80,14 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
                   <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/create-event"
+              element={
+                <ProtectedRoute allowedRoles={['organizer']}>
+                  <CreateEvent />
                 </ProtectedRoute>
               }
             />
