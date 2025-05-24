@@ -1,8 +1,27 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
+import { toast } from 'react-toastify'
 
 const EventCard = ({ event }) => {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const { user } = useAuth()
+    const navigate = useNavigate()
+
+    const handleBookNow = () => {
+        if (!user) {
+            toast.info('Please login to book a ticket')
+            navigate('/login', { state: { from: `/events/${event._id}` } })
+            return
+        }
+
+        if (user.role === 'admin' || user.role === 'organizer') {
+            toast.error('Admins and organizers cannot book tickets')
+            return
+        }
+
+        navigate(`/events/${event._id}`)
+    }
 
     return (
         <>
@@ -104,12 +123,12 @@ const EventCard = ({ event }) => {
                                         Close
                                     </button>
                                     {event.status === 'approved' && event.remainingTickets > 0 && (
-                                        <Link
-                                            to={`/events/${event._id}`}
+                                        <button
+                                            onClick={handleBookNow}
                                             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                                         >
                                             Book Now
-                                        </Link>
+                                        </button>
                                     )}
                                 </div>
                             </div>
