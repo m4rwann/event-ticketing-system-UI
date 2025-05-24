@@ -12,7 +12,6 @@ const eventRouter = require("./routes/event");
 const bookingRouter = require("./routes/booking");
 const authenticationMiddleware = require('./middleware/authenticationMiddleware')
 
-
 require('dotenv').config();
 
 app.use(express.json());
@@ -28,12 +27,14 @@ app.use(
     })
 );
 
+// Public routes (no authentication required)
 app.use("/api/v1", authRouter);
 app.use("/api/v1", forgotPasswordRoutes);
-app.use(authenticationMiddleware);
-app.use("/api/v1/users", userRouter);
-app.use("/api/v1/events", eventRouter);
-app.use("/api/v1/bookings", bookingRouter);
+
+// Protected routes (authentication required)
+app.use("/api/v1/users", authenticationMiddleware, userRouter);
+app.use("/api/v1/events", authenticationMiddleware, eventRouter);
+app.use("/api/v1/bookings", authenticationMiddleware, bookingRouter);
 
 const db_name = process.env.DB_NAME;
 const db_url = `${process.env.DB_URL}/${db_name}`;
@@ -49,3 +50,5 @@ app.use(function (req, res, next) {
     return res.status(404).send("404");
 });
 app.listen(process.env.PORT, () => console.log("server started"));
+
+module.exports = app;
