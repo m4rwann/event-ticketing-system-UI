@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await api.post('/auth/logout')
+            await api.post('/logout')
             setUser(null)
             return { success: true }
         } catch (error) {
