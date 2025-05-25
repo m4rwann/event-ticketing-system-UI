@@ -48,6 +48,15 @@ const eventController = {
             return res.status(500).json({ message: "Server error", error: err.message });
         }
     },
+    getAllEventsAdmin: async (req, res) => {
+        try {
+            let events;
+            events = await Event.find({});
+            return res.status(200).json(events);
+        } catch (err) {
+            return res.status(500).json({ message: "Server error", error: err.message });
+        }
+    },
     getEventDetails: async (req, res) => {
         try {
             const event = await Event.findById(req.params.id);
