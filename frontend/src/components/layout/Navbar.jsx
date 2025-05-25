@@ -29,7 +29,7 @@ const Navbar = () => {
                 return (
                     <>
                         <Link to="/users" className="text-gray-600 hover:text-gray-900">Users</Link>
-                        <Link to="/requests" className="text-gray-600 hover:text-gray-900">Requests</Link>
+                        <Link to="/all-events" className="text-gray-600 hover:text-gray-900">All Events</Link>
                         <span className="text-gray-600">Hi, {user.name}</span>
                         <button
                             onClick={handleLogout}

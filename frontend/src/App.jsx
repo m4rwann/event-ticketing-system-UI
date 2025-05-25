@@ -12,6 +12,8 @@ import MyEvents from './pages/MyEvents'
 import CreateEvent from './pages/CreateEvent'
 import EditEvent from './pages/EditEvent'
 import EventAnalytics from './pages/EventAnalytics'
+import UserManagement from './pages/UserManagement'
+import AllEvents from './pages/AllEvents'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -80,15 +82,15 @@ function App() {
               path="/users"
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
-                  <Home />
+                  <UserManagement />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/requests"
+              path="/all-events"
               element={
                 <ProtectedRoute allowedRoles={['admin']}>
-                  <Home />
+                  <AllEvents />
                 </ProtectedRoute>
               }
             />
