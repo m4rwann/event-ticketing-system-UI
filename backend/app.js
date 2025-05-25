@@ -36,9 +36,10 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use("/api/v1", authRouter);
 app.use("/api/v1", forgotPasswordRoutes);
 
+app.use("/api/v1/events", eventRouter);
+
 // Protected routes (authentication required)
 app.use("/api/v1/users", authenticationMiddleware, userRouter);
-app.use("/api/v1/events", authenticationMiddleware, eventRouter);
 app.use("/api/v1/bookings", authenticationMiddleware, bookingRouter);
 app.use("/api/v1/upload", authenticationMiddleware, uploadRouter);
 

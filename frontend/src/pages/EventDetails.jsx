@@ -47,7 +47,7 @@ const EventDetails = () => {
                 <div className="space-y-6">
                     {event.image && (
                         <img
-                            src={event.image}
+                            src={`http://localhost:3000/public/images/${event.image}`}
                             alt={event.title}
                             className="w-full h-96 object-cover rounded-lg shadow-lg"
                         />

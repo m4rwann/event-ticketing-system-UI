@@ -11,6 +11,7 @@ import MyTickets from './pages/MyTickets'
 import MyEvents from './pages/MyEvents'
 import CreateEvent from './pages/CreateEvent'
 import EditEvent from './pages/EditEvent'
+import EventAnalytics from './pages/EventAnalytics'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -64,6 +65,14 @@ function App() {
               element={
                 <ProtectedRoute allowedRoles={['organizer']}>
                   <EditEvent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/events/:id/analytics"
+              element={
+                <ProtectedRoute allowedRoles={['organizer']}>
+                  <EventAnalytics />
                 </ProtectedRoute>
               }
             />

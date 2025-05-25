@@ -113,6 +113,12 @@ const MyEvents = () => {
                                 >
                                     Edit
                                 </Link>
+                                <Link
+                                    to={`/events/${event._id}/analytics`}
+                                    className="text-purple-600 hover:text-purple-800"
+                                >
+                                    View Analytics
+                                </Link>
                                 <button
                                     onClick={() => handleDeleteEvent(event._id)}
                                     className="text-red-600 hover:text-red-800"

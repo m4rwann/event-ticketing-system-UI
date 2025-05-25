@@ -41,11 +41,7 @@ const eventController = {
     getAllEvents: async (req, res) => {
         try {
             let events;
-            if (req.user.role === 'admin') {
-                events = await Event.find();
-            } else {
-                events = await Event.find({ status: "approved" });
-            }
+            events = await Event.find({ status: "approved" });
 
             return res.status(200).json(events);
         } catch (err) {
