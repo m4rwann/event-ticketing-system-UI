@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
@@ -10,6 +11,7 @@ const forgotPasswordRoutes = require("./routes/forgotPassword");
 const userRouter = require("./routes/user");
 const eventRouter = require("./routes/event");
 const bookingRouter = require("./routes/booking");
+const uploadRouter = require("./routes/uploadRoutes");
 const authenticationMiddleware = require('./middleware/authenticationMiddleware')
 
 require('dotenv').config();
@@ -27,14 +29,19 @@ app.use(
     })
 );
 
+// Serve static files from the public directory
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 // Public routes (no authentication required)
 app.use("/api/v1", authRouter);
 app.use("/api/v1", forgotPasswordRoutes);
 
+app.use("/api/v1/events", eventRouter);
+
 // Protected routes (authentication required)
 app.use("/api/v1/users", authenticationMiddleware, userRouter);
-app.use("/api/v1/events", authenticationMiddleware, eventRouter);
 app.use("/api/v1/bookings", authenticationMiddleware, bookingRouter);
+app.use("/api/v1/upload", authenticationMiddleware, uploadRouter);
 
 const db_name = process.env.DB_NAME;
 const db_url = `${process.env.DB_URL}/${db_name}`;
